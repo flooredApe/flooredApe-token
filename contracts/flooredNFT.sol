@@ -16,6 +16,10 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, Ownable {
     
 
     constructor() ERC721("FlooredApe", "FA") {}
+    
+    function renounce() public onlyOwner {
+        renounceOwnership();
+    }
 
     function pause() public onlyOwner {
         _pause();
