@@ -11,13 +11,13 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
-    uint256 public MINT_RATE = 0.05 ether;
+    uint256 public MINT_RATE = 0.02 ether;
     uint public MAX_SUPPLY = 50000;
     
     constructor() ERC721("FlooredApe", "FA") {}
 
     function renounce() public onlyOwner {
-        renounceOwnership(); //from Ownable.sol
+        _renounceOwnership(); //from Ownable.sol
     }
 
     function pause() public onlyOwner {
@@ -30,12 +30,14 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, Ownable {
 
     function safeMint(address to, string memory uri) public payable {
         require(_tokenIdCounter.current() < MAX_SUPPLY, "Tokens are sold out.");
-        if (_tokenIdCounter.current() < 1001){
+        require(msg.value >= MINT_RATE, "Not enough ether.");
         _safeMint(to, _tokenIdCounter.current());
         _setTokenURI(_tokenIdCounter.current(), uri); 
         _tokenIdCounter.increment();
-        } else {
-        require(msg.value >= MINT_RATE, "Not enough ether.");
+        }
+    }
+
+    function ownerMint(address to, string memory uri) onlyOwner { //for airdrop
         _safeMint(to, _tokenIdCounter.current());
         _setTokenURI(_tokenIdCounter.current(), uri); 
         _tokenIdCounter.increment();
