@@ -62,7 +62,7 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
     }
 
     function contractURI() public pure returns (string memory) {
-        return "https://flooredape.mypinata.cloud/ipfs/QmXhYrXmaCoWxGFXfwW7YsnYGze4jFzubtPP5oWousbe1K";
+        return "https://flooredape.mypinata.cloud/ipfs/QmYsjx5W9bsNZfK3KzkvJRGmEozRCgzGbdYGmp3U7Nb5wv";
     }
 
     function tokenURI(uint256 tokenId)
