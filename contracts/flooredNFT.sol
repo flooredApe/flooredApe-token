@@ -5,7 +5,8 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
+//import "@openzeppelin/contracts/utils/Counters.sol";
+import Counters.sol;
 
 contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
     using Counters for Counters.Counter;
@@ -16,7 +17,8 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
 
     Counters.Counter private _tokenIdCounter;
     uint256 public MINT_RATE = 0.02 ether;
-    uint public MAX_SUPPLY = 50000;
+    uint256 public MAX_SUPPLY = 50001;
+    uint256 public ogTokenNum = 0;
     
     constructor() ERC721("FlooredApe", "FA") {
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
@@ -42,9 +44,10 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
     }
 
     function ownerMint(address to, string memory uri) public onlyRole(DEFAULT_ADMIN_ROLE) { //for airdrop
+        require(ogTokenNum < 1001, "Tokens are sold out.");
         _safeMint(to, _tokenIdCounter.current());
         _setTokenURI(_tokenIdCounter.current(), uri); 
-        _tokenIdCounter.increment();
+        ogTokenNum++;
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 tokenId)
