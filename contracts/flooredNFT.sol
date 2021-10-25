@@ -44,7 +44,7 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
         _tokenIdCounter.increment();
     }
 
-    function ownerMint(address to, string memory uri) public onlyRole(DEFAULT_ADMIN_ROLE) { //for airdrop
+    function ownerMint(address to, string memory uri) public onlyRole(DEFAULT_ADMIN_ROLE) payable { //for airdrop
         require(_ogTokenIdCounter.current() < 1001, "OG Tokens are sold out");
         _safeMint(to, _ogTokenIdCounter.current());
         _setTokenURI(_ogTokenIdCounter.current(), uri); 
