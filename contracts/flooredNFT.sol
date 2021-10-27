@@ -134,6 +134,11 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
         return _ogTokenIdCounter.current();
     }
 
+    function test()
+    {
+        
+    }
+
 
 
 }
