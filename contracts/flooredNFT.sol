@@ -13,6 +13,9 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant OG_ROLE = keccak256("OG_ROLE");
+    bool public publicBool = false;
+    bool public whiteListBool = false;
+    bool public adminBool = false;
 
     Counters.Counter private _tokenIdCounter;
     Counters.Counter private _ogTokenIdCounter;
@@ -35,7 +38,8 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
         _unpause();
     }
 
-    function safeMint(address to, string memory uri, uint amount) public whenNotPaused payable {
+    function safeMint(address to, string memory uri, uint amount) public payable {
+        require(publicBool, "Function not currently accessible");
         require(_tokenIdCounter.current() < 50001, "Tokens are sold out.");
         require(msg.value >= amount * MINT_RATE, "Not enough ether.");
 
@@ -49,7 +53,8 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
         
     }
 
-    function whiteListMint(address to, string memory uri, uint amount) public whenPaused whenNotPaused onlyRole(MINTER_ROLE) payable {
+    function whiteListMint(address to, string memory uri, uint amount) public onlyRole(MINTER_ROLE) payable {
+        require(whieListBool, "Function not currently accessible");
         require(_tokenIdCounter.current() < 50001, "Tokens are sold out.");
         require(msg.value >= amount * MINT_RATE, "Not enough ether.");
 
@@ -63,7 +68,8 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
         
     }
 
-    function ownMint(address to, string memory uri, uint amount) public whenPaused whenNotPaused onlyRole(DEFAULT_ADMIN_ROLE) payable { //for airdrop
+    function ownMint(address to, string memory uri, uint amount) public onlyRole(DEFAULT_ADMIN_ROLE) payable { //for airdrop
+        require(adminBool, "Function not currently accessible");
         require(_ogTokenIdCounter.current() < 1001, "OG Tokens are sold out");
         
         for (uint i=0; i < amount; i++)
