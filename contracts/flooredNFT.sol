@@ -35,47 +35,41 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
         _unpause();
     }
 
-    function safeMint(
-        address to,
-        string memory uri,
-        uint256 amount
-    ) public payable whenNotPaused {
+    function safeMint(address to, string memory uri, uint amount) public whenNotPaused payable {
         require(_tokenIdCounter.current() < 50001, "Tokens are sold out.");
         require(msg.value >= amount * MINT_RATE, "Not enough ether.");
 
-        for (uint256 i = 0; i < amount; i++) {
+        for (uint i=0; i < amount; i++)
+        {
             _safeMint(to, _tokenIdCounter.current());
-            _setTokenURI(_tokenIdCounter.current(), uri);
+            _setTokenURI(_tokenIdCounter.current(), uri); 
             _tokenIdCounter.increment();
         }
+
+        
     }
 
-    function whiteListMint(
-        address to,
-        string memory uri,
-        uint256 amount
-    ) public payable onlyRole(MINTER_ROLE) {
+    function whiteListMint(address to, string memory uri, uint amount) public whenPaused whenNotPaused onlyRole(MINTER_ROLE) payable {
         require(_tokenIdCounter.current() < 50001, "Tokens are sold out.");
         require(msg.value >= amount * MINT_RATE, "Not enough ether.");
 
-        for (uint256 i = 0; i < amount; i++) {
+        for (uint i=0; i < amount; i++)
+        {
             _safeMint(to, _tokenIdCounter.current());
-            _setTokenURI(_tokenIdCounter.current(), uri);
+            _setTokenURI(_tokenIdCounter.current(), uri); 
             _tokenIdCounter.increment();
         }
+
+        
     }
 
-    function ownMint(
-        address to,
-        string memory uri,
-        uint256 amount
-    ) public payable onlyRole(DEFAULT_ADMIN_ROLE) {
-        //for airdrop
+    function ownMint(address to, string memory uri, uint amount) public whenPaused whenNotPaused onlyRole(DEFAULT_ADMIN_ROLE) payable { //for airdrop
         require(_ogTokenIdCounter.current() < 1001, "OG Tokens are sold out");
-
-        for (uint256 i = 0; i < amount; i++) {
+        
+        for (uint i=0; i < amount; i++)
+        {
             _safeMint(to, _ogTokenIdCounter.current());
-            _setTokenURI(_ogTokenIdCounter.current(), uri);
+            _setTokenURI(_ogTokenIdCounter.current(), uri); 
             _ogTokenIdCounter.increment();
         }
     }
@@ -120,19 +114,21 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
         return super.supportsInterface(interfaceId);
     }
 
-    function batchRole (bytes32 role, address[] memory arr) public onlyRole(DEFAULT_ADMIN_ROLE)
+    function batchRole(bytes32 role, address[] memory arr)
+        public
+        onlyRole(DEFAULT_ADMIN_ROLE)
     {
-        for(uint i=0; i < arr.length; i++)
-        {
-        grantRole(role, arr[i]);
+        for (uint256 i = 0; i < arr.length; i++) {
+            grantRole(role, arr[i]);
         }
     }
 
-    function batchRevoke (bytes32 role, address[] memory arr) public onlyRole(DEFAULT_ADMIN_ROLE)
+    function batchRevoke(bytes32 role, address[] memory arr)
+        public
+        onlyRole(DEFAULT_ADMIN_ROLE)
     {
-        for(uint i=0; i < arr.length; i++)
-        {
-        revokeRole(role, arr[i]);
+        for (uint256 i = 0; i < arr.length; i++) {
+            revokeRole(role, arr[i]);
         }
     }
 
