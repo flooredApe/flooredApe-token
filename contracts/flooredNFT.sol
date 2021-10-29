@@ -162,9 +162,9 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
     }
     function flipOwner() public view onlyRole(DEFAULT_ADMIN_ROLE)
     {
-        if(ownerBool)
-            ownerBool = false;
+        if(adminBool)
+            adminBool = false;
         else
-            ownerBool = true;
+            adminBool = true;
     }
 }
