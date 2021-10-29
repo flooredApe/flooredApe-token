@@ -54,7 +54,7 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
     }
 
     function whiteListMint(address to, string memory uri, uint amount) public onlyRole(MINTER_ROLE) payable {
-        require(whieListBool, "Function not currently accessible");
+        require(whiteListBool, "Function not currently accessible");
         require(_tokenIdCounter.current() < 50001, "Tokens are sold out.");
         require(msg.value >= amount * MINT_RATE, "Not enough ether.");
 
