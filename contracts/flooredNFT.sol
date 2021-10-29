@@ -120,21 +120,19 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
         return super.supportsInterface(interfaceId);
     }
 
-    function batchRole(address[] memory arr, bytes32 role)
-        public
-        onlyRole(DEFAULT_ADMIN_ROLE)
+    function batchRole (bytes32 role, address[] memory arr) public onlyRole(DEFAULT_ADMIN_ROLE)
     {
-        for (uint256 i = 0; i < arr.length; i++) {
-            grantRole(role, arr[i]);
+        for(uint i=0; i < arr.length; i++)
+        {
+        grantRole(role, arr[i]);
         }
     }
 
-    function batchRevoke(address[] memory arr, bytes32 role)
-        public
-        onlyRole(DEFAULT_ADMIN_ROLE)
+    function batchRevoke (bytes32 role, address[] memory arr) public onlyRole(DEFAULT_ADMIN_ROLE)
     {
-        for (uint256 i = 0; i < arr.length; i++) {
-            revokeRole(role, arr[i]);
+        for(uint i=0; i < arr.length; i++)
+        {
+        revokeRole(role, arr[i]);
         }
     }
 
