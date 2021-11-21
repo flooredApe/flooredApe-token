@@ -16,14 +16,14 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
     bool public publicBool = false;
     bool public whiteListBool = false;
     bool public adminBool = false;
-
+    string ogUri = "https://flooredape.mypinata.cloud/ipfs/QmX8264nb5ND6uAuhwpnCvPpoWdtKcXc1qkG8WzmVSahxp";
 
     Counters.Counter private _tokenIdCounter; 
     Counters.Counter private _ogTokenIdCounter;
 
     uint256 public MINT_RATE = 0.02 ether;
     
-    constructor() ERC721("flooredApe", unicode"🐵") {
+    constructor() ERC721("flooredApe", unicode"fA") {
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _setupRole(PAUSER_ROLE, msg.sender);
         _setupRole(MINTER_ROLE, msg.sender);
@@ -68,6 +68,12 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
 
         
     }
+
+    function batchMint(address[] memory whiteList, uint amount) public onlyRole(DEFAULT_ADMIN_ROLE) payable {
+        for(uint i=0; i < whiteList.length; i++)
+            ownMint(whiteList[i], ogUri, amount);
+    }
+
 
     function ownMint(address to, string memory uri, uint amount) public onlyRole(DEFAULT_ADMIN_ROLE) payable { //for airdrop
         require(adminBool, "Function not currently accessible");
