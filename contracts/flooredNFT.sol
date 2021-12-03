@@ -17,6 +17,7 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
     bool public whiteListBool = false;
     bool public adminBool = false;
     string ogUri = "https://flooredape.mypinata.cloud/ipfs/QmX8264nb5ND6uAuhwpnCvPpoWdtKcXc1qkG8WzmVSahxp";
+    string normalUri = "https://flooredape.mypinata.cloud/ipfs/QmZLqNNUBpEkSA7xYpPXy4dBfTVifmNtTSop4A3KCGFHGz";
 
     Counters.Counter private _tokenIdCounter; 
     Counters.Counter private _ogTokenIdCounter;
@@ -37,6 +38,23 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
 
     function unpause() public onlyRole(PAUSER_ROLE) {
         _unpause();
+    }
+
+    function batchFreeMint(address[] memory whiteList, uint amount) public onlyRole(DEFAULT_ADMIN_ROLE) payable {
+        for(uint i=0; i < whiteList.length; i++)
+            freeMint(whiteList[i], normalUri, amount);
+    }
+
+    function freeMint(address to, string memory uri, uint amount) public onlyRole(DEFAULT_ADMIN_ROLE) payable {
+        require(publicBool, "Function not currently accessible");
+        require(_tokenIdCounter.current() < 50001, "Tokens are sold out.");
+        
+        for (uint i=0; i < amount; i++)
+        {
+            _safeMint(to, _tokenIdCounter.current());
+            _setTokenURI(_tokenIdCounter.current(), uri); 
+            _tokenIdCounter.increment();
+        }        
     }
 
     function safeMint(address to, string memory uri, uint amount) public payable {
@@ -69,7 +87,7 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
         
     }
 
-    function batchMint(address[] memory whiteList, uint amount) public onlyRole(DEFAULT_ADMIN_ROLE) payable {
+    function batchOwnMint(address[] memory whiteList, uint amount) public onlyRole(DEFAULT_ADMIN_ROLE) payable {
         for(uint i=0; i < whiteList.length; i++)
             ownMint(whiteList[i], ogUri, amount);
     }
