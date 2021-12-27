@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "../contracts/Counters.sol";
 
-contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
+contract FlooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, AccessControl {
     using Counters for Counters.Counter;
 
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
@@ -42,11 +42,11 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
         _unpause();
     }
 
-    function batchFreeMint(address[] memory whiteList, string memory uri, uint256 amount)
-        public
-        payable
-        onlyRole(DEFAULT_ADMIN_ROLE)
-    {
+    function batchFreeMint(
+        address[] memory whiteList,
+        string memory uri,
+        uint256 amount
+    ) public payable onlyRole(DEFAULT_ADMIN_ROLE) {
         require(publicBool, "Function not currently accessible");
         require(_tokenIdCounter.current() < 50001, "Tokens are sold out.");
 
@@ -79,7 +79,7 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
         address to,
         string memory uri,
         uint256 amount
-    ) public payable {
+    ) public payable nonReentrant {
         require(publicBool, "Function not currently accessible");
         require(_tokenIdCounter.current() < 50001, "Tokens are sold out.");
         require(msg.value >= amount * MINT_RATE, "Not enough ether.");
@@ -95,7 +95,7 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
         address to,
         string memory uri,
         uint256 amount
-    ) public payable onlyRole(MINTER_ROLE) {
+    ) public payable onlyRole(MINTER_ROLE) nonReentrant {
         require(whiteListBool, "Function not currently accessible");
         require(_tokenIdCounter.current() < 50001, "Tokens are sold out.");
         require(msg.value >= amount * MINT_RATE, "Not enough ether.");
@@ -107,7 +107,7 @@ contract FlooredApe is ERC721, ERC721URIStorage, Pausable, AccessControl {
         }
     }
 
-    function batchOwnMint(
+    function batchOwnMint (
         address[] memory whiteList,
         string memory uri,
         uint256 amount
