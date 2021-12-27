@@ -61,21 +61,6 @@ contract FlooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
         }
     }
 
-    function freeMint(
-        address to,
-        string memory uri,
-        uint256 amount
-    ) public payable onlyRole(DEFAULT_ADMIN_ROLE) {
-        require(publicBool, "Function not currently accessible");
-        require(_tokenIdCounter.current() < 50001, "Tokens are sold out.");
-
-        for (uint256 i = 0; i < amount; i++) {
-            _safeMint(to, _tokenIdCounter.current());
-            _setTokenURI(_tokenIdCounter.current(), uri);
-            _tokenIdCounter.increment();
-        }
-    }
-
     function safeMint(
         address to,
         string memory uri,
@@ -123,21 +108,6 @@ contract FlooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
                 _setTokenURI(_ogTokenIdCounter.current(), uri);
                 _ogTokenIdCounter.increment();
             }
-        }
-    }
-
-    function ownMint(
-        address to,
-        string memory uri,
-        uint256 amount
-    ) public payable onlyRole(DEFAULT_ADMIN_ROLE) {
-        require(adminBool, "Function not currently accessible");
-        require(_ogTokenIdCounter.current() < 1001, "OG Tokens are sold out");
-
-        for (uint256 i = 0; i < amount; i++) {
-            _safeMint(to, _ogTokenIdCounter.current());
-            _setTokenURI(_ogTokenIdCounter.current(), uri);
-            _ogTokenIdCounter.increment();
         }
     }
 
