@@ -1,11 +1,32 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 /*
-,--- |                            |,---.          
-|__. |    ,---.,---.,---.,---.,---||---|,---.,---.
-|    |    |   ||   ||    |---'|   ||   ||   ||---'
-`    `---'`---'`---'`    `---'`---'`   '|---'`---'
-                                        |     
+
+            .-+*%@@@@@@%#+-.            
+  =**=:  :+%@@#*=--::--=*#@@%+.  .=**+  
+ %#:+@@%#@@*:              :+@@%#@@+:*@.
+*%=*=-@@@=                    =%@@=-*+#*
+@+* :@@*                        +@@: +=@
+@=#*@@+                          =@@*#=@
++@+#@%                            #@%=@*
+ =#@@-                            -@@#= 
+  .@@:                            .@@:  
+  .@@-          *%#-   +##=       :@@:  
+   %@*          :%@@.-::#@@:      +@@   
+   -@@-    :+*%++*+:=+-=**+#%*=: :@@=   
+    =@@-:*@*-.      +-:+     :=#@@@+    
+     -@@@*             .      .*@@=     
+       +@@*:        -**+    :*@@*.      
+        .+@@@*=:    -gm=:-*%@@+.        
+           :=#%@@@@%%@@@@@#+:           
+ d'b 8                                 8      .oo               
+ 8   8                                 8     .P 8               
+o8P  8 .oPYo. .oPYo. oPYo. .oPYo. .oPYo8    .P  8 .oPYo. .oPYo. 
+ 8   8 8    8 8    8 8  `' 8oooo8 8    8   oPooo8 8    8 8oooo8 
+ 8   8 8    8 8    8 8     8.     8    8  .P    8 8    8 8.     
+ 8   8 `Ygmi' `Wgmi' 8     `Wagmi `YooP' .P     8 8YooP' `Yooo' 
+:..::..:.....::.....:..:::::.....::.....:..:::::..8 ....::.....:
+::::::::::::::::::::::::::::::::::::::::::::::::::8 ::::::::::::
 */
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -15,7 +36,7 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "../contracts/Counters.sol";
 
-contract FlooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, AccessControl {
+contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, AccessControl {
     using Counters for Counters.Counter;
 
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
