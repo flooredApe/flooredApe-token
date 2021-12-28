@@ -5,3 +5,4 @@ artifacts
 cache
 flooredApe-minting-master
 bin
+hardhat.config.js
