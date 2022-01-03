@@ -94,6 +94,7 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
         string memory uri,
         uint256 amount
     ) public payable nonReentrant {
+        require(amount < 11);
         require(publicBool, "Function not currently accessible");
         require(_tokenIdCounter.current() < 50001, "Tokens are sold out.");
         require(msg.value >= amount * MINT_RATE, "Not enough ether.");
@@ -110,6 +111,7 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
         string memory uri,
         uint256 amount
     ) public payable onlyRole(MINTER_ROLE) nonReentrant {
+        require(amount < 11);
         require(whiteListBool, "Function not currently accessible");
         require(_tokenIdCounter.current() < 50001, "Tokens are sold out.");
         require(msg.value >= amount * MINT_RATE, "Not enough ether.");
