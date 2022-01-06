@@ -45,10 +45,10 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
     bool public publicBool = true;
     bool public whiteListBool = true;
     bool public adminBool = true;
-    string private uriValue = "https://flooredape.mypinata.cloud/ipfs/QmXhYrXmaCoWxGFXfwW7YsnYGze4jFzubtPP5oWousbe1K";
+    string private uriValue = "https://flooredape.mypinata.cloud/ipfs/QmS6SvGyjpsoS1EVob2ojw296HY8P9R7ktwiG6aiyfPZmM";
 
-    //OG URI Link https://flooredape.mypinata.cloud/ipfs/QmX8264nb5ND6uAuhwpnCvPpoWdtKcXc1qkG8WzmVSahxp
-    //Normal URI Link https://flooredape.mypinata.cloud/ipfs/QmZLqNNUBpEkSA7xYpPXy4dBfTVifmNtTSop4A3KCGFHGz
+    //OG URI Link https://flooredape.mypinata.cloud/ipfs/QmUiz7V5HvpGdWcoT58ZtbZYyYXG9p8rFnqWJG9j6rAzcd
+    //Normal URI Link https://flooredape.mypinata.cloud/ipfs/QmaCXiEsqsAYJrPZzjFBUfr6WMSn9pjhLfNEcZuRj1vD7S
 
     Counters.Counter private _tokenIdCounter;
     Counters.Counter private _ogTokenIdCounter;
