@@ -222,4 +222,9 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
     function flipOwner() public onlyRole(DEFAULT_ADMIN_ROLE) {
         adminBool = !adminBool;
     }
+
+    function withdrawFees() public payable onlyRole(DEFAULT_ADMIN_ROLE){
+        address payable to = payable(msg.sender);
+        to.transfer(address(this).balance);
+    }
 }
