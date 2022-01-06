@@ -55,7 +55,7 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
 
     uint256 public MINT_RATE = 0.02 ether;
 
-    constructor() ERC721("flooredApe", unicode"fA") {
+    constructor() ERC721("flooredApe", "fA") {
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _setupRole(PAUSER_ROLE, msg.sender);
         _setupRole(MINTER_ROLE, msg.sender);
