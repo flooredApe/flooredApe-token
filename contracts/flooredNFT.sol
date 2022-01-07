@@ -42,13 +42,10 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant OG_ROLE = keccak256("OG_ROLE");
-    bool public publicBool = true;
-    bool public whiteListBool = true;
+    bool public publicBool = false;
+    bool public whiteListBool = false;
     bool public adminBool = true;
     string private uriValue = "https://flooredape.mypinata.cloud/ipfs/QmS6SvGyjpsoS1EVob2ojw296HY8P9R7ktwiG6aiyfPZmM";
-
-    //OG URI Link https://flooredape.mypinata.cloud/ipfs/QmYs6cZwDQ3r9SLzzowfRNhHNMphDgn3pevPtgKkFEWoTq
-    //Normal URI Link https://flooredape.mypinata.cloud/ipfs/QmeaN8mGCyRTEr74jAFjnVYoJ8WjBxSyxtSrb2V3FyiUcg
 
     Counters.Counter private _tokenIdCounter;
     Counters.Counter private _ogTokenIdCounter;
@@ -148,8 +145,6 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
     ) internal override whenNotPaused {
         super._beforeTokenTransfer(from, to, tokenId);
     }
-
-    // The following functions are overrides required by Solidity.
 
     function _burn(uint256 tokenId)
         internal
