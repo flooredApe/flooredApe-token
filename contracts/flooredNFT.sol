@@ -73,7 +73,7 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
     function batchFreeMint(
         address[] memory whiteList,
         uint256 amount
-    ) public payable onlyRole(DEFAULT_ADMIN_ROLE) {
+    ) public onlyRole(DEFAULT_ADMIN_ROLE) {
         require(publicBool, "Function not currently accessible");
         require(_tokenIdCounter.current() < 50001, "Tokens are sold out.");
         for (uint256 j = 0; j < whiteList.length; j++) {
@@ -87,7 +87,6 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
     }
 
     function degenMint(
-        address to,
         uint256 amount
     ) public payable nonReentrant {
         require(amount < 11, "amount exceeds limit (10)");
@@ -95,6 +94,7 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
         require(_tokenIdCounter.current() < 50001, "Tokens are sold out.");
         require(msg.value >= amount * MINT_RATE, "Not enough ether.");
 
+        address to = msg.sender;
         for (uint256 i = 0; i < amount; i++) {
             _safeMint(to, _tokenIdCounter.current());
             _setTokenURI(_tokenIdCounter.current(), degenURI);
@@ -103,9 +103,9 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
     }
 
     function whiteListMint(
-        address to,
         uint256 amount
     ) public payable onlyRole(MINTER_ROLE) nonReentrant {
+        address to = msg.sender;
         require(amount < 11, "amount exceeds limit (10)");
         require(whiteListBool, "Function not currently accessible");
         require(_tokenIdCounter.current() < 50001, "Tokens are sold out.");
@@ -121,7 +121,7 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
     function batchOwnMint (
         address[] memory whiteList,
         uint256 amount
-    ) public payable onlyRole(DEFAULT_ADMIN_ROLE) {
+    ) public onlyRole(DEFAULT_ADMIN_ROLE) {
         require(adminBool, "Function not currently accessible");
         require(_ogTokenIdCounter.current() < 1001, "OG Tokens are sold out");
 
