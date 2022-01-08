@@ -46,6 +46,8 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
     bool public whiteListBool = false;
     bool public adminBool = true;
     string private uriValue = "https://flooredape.mypinata.cloud/ipfs/QmS6SvGyjpsoS1EVob2ojw296HY8P9R7ktwiG6aiyfPZmM";
+    string private degenURI = "https://flooredape.mypinata.cloud/ipfs/QmeaN8mGCyRTEr74jAFjnVYoJ8WjBxSyxtSrb2V3FyiUcg";
+    string private ogURI = "https://flooredape.mypinata.cloud/ipfs/QmYs6cZwDQ3r9SLzzowfRNhHNMphDgn3pevPtgKkFEWoTq";
 
     Counters.Counter private _tokenIdCounter;
     Counters.Counter private _ogTokenIdCounter;
@@ -70,25 +72,22 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
 
     function batchFreeMint(
         address[] memory whiteList,
-        string memory uri,
         uint256 amount
     ) public payable onlyRole(DEFAULT_ADMIN_ROLE) {
         require(publicBool, "Function not currently accessible");
         require(_tokenIdCounter.current() < 50001, "Tokens are sold out.");
-
         for (uint256 j = 0; j < whiteList.length; j++) {
             address to = whiteList[j];
             for (uint256 i = 0; i < amount; i++) {
                 _safeMint(to, _tokenIdCounter.current());
-                _setTokenURI(_tokenIdCounter.current(), uri);
+                _setTokenURI(_tokenIdCounter.current(), degenURI);
                 _tokenIdCounter.increment();
             }
         }
     }
 
-    function safeMint(
+    function degenMint(
         address to,
-        string memory uri,
         uint256 amount
     ) public payable nonReentrant {
         require(amount < 11, "amount exceeds limit (10)");
@@ -98,14 +97,13 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
 
         for (uint256 i = 0; i < amount; i++) {
             _safeMint(to, _tokenIdCounter.current());
-            _setTokenURI(_tokenIdCounter.current(), uri);
+            _setTokenURI(_tokenIdCounter.current(), degenURI);
             _tokenIdCounter.increment();
         }
     }
 
     function whiteListMint(
         address to,
-        string memory uri,
         uint256 amount
     ) public payable onlyRole(MINTER_ROLE) nonReentrant {
         require(amount < 11, "amount exceeds limit (10)");
@@ -115,14 +113,13 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
 
         for (uint256 i = 0; i < amount; i++) {
             _safeMint(to, _tokenIdCounter.current());
-            _setTokenURI(_tokenIdCounter.current(), uri);
+            _setTokenURI(_tokenIdCounter.current(), degenURI);
             _tokenIdCounter.increment();
         }
     }
 
     function batchOwnMint (
         address[] memory whiteList,
-        string memory uri,
         uint256 amount
     ) public payable onlyRole(DEFAULT_ADMIN_ROLE) {
         require(adminBool, "Function not currently accessible");
@@ -132,7 +129,7 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
             address to = whiteList[j];
             for (uint256 i = 0; i < amount; i++) {
                 _safeMint(to, _ogTokenIdCounter.current());
-                _setTokenURI(_ogTokenIdCounter.current(), uri);
+                _setTokenURI(_ogTokenIdCounter.current(), ogURI);
                 _ogTokenIdCounter.increment();
             }
         }
