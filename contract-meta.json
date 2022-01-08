@@ -1,5 +1,7 @@
 {
     "name": "flooredApe Token",
     "description": "flooredApe is an Ethereum based NFT wallet tracking tool that offers a wide range of analytics for your NFT portfolio. Built to give the people their time back in a time-consuming space - you can now get a quick overview of your collection floor prices, transaction history, track other wallets, all while watching gas prices. The flooredApe NFT acts as an access token as well as provides the holder with voting rights on feature requests and implementation.",
-    "image": "https://flooredape.mypinata.cloud/ipfs/QmP8po3HGmAh2sbPfBBtAfRU9TmV2NJ3szATmWVyPsD7UF"
+    "image": "https://flooredape.mypinata.cloud/ipfs/QmP8po3HGmAh2sbPfBBtAfRU9TmV2NJ3szATmWVyPsD7UF",
+    "seller_fee_basis_points": 250,
+    "fee_recipient": "0x12896b1864eEe55262b13b8A4471dF36e03492E1"
 }
