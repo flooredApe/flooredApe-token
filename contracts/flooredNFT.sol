@@ -42,15 +42,19 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant OG_ROLE = keccak256("OG_ROLE");
-    bool public publicBool = false;
-    bool public whiteListBool = false;
+    bool public publicBool = true;
+    bool public whiteListBool = true;
     bool public adminBool = true;
+    string private _baseURIextended = "https://gateway.pinata.cloud/ipfs/QmUeyU2E1XTFSAUeTzwJZowXtyocWdYuGHc7QrVQUq9Qp2/";
     string private uriValue = "https://flooredape.mypinata.cloud/ipfs/QmdnpoFHDeVJcBbGyUZDXrNisKynYj2EgpNszuAnGmdRhp";
-    string private degenURI = "https://flooredape.mypinata.cloud/ipfs/QmeaN8mGCyRTEr74jAFjnVYoJ8WjBxSyxtSrb2V3FyiUcg";
-    string private ogURI = "https://flooredape.mypinata.cloud/ipfs/QmYs6cZwDQ3r9SLzzowfRNhHNMphDgn3pevPtgKkFEWoTq";
+    //string private degenURI = "https://gateway.pinata.cloud/ipfs/QmaSetYmNsX3jsUaiLhaTZenZjaDXvd8MH5zNfjYczT6Fw";
+    //string private ogURI = "https://gateway.pinata.cloud/ipfs/QmQdRZftc8Zxk6MhMBzD9Kz2whtSf3pJycdycbfcBDxvij";
 
     Counters.Counter private _tokenIdCounter;
     Counters.Counter private _ogTokenIdCounter;
+
+    // Optional mapping for token URIs
+    mapping(uint256 => string) private _tokenURIs;
 
     uint256 public MINT_RATE = 0.02 ether;
 
@@ -60,6 +64,19 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
         _setupRole(MINTER_ROLE, msg.sender);
         _setupRole(OG_ROLE, msg.sender);
         _tokenIdCounter.setCounter();
+    }
+
+    function setBaseURI(string memory baseURI_) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        _baseURIextended = baseURI_;
+    }
+
+    function _baseURI() internal view virtual override returns (string memory) {
+        return _baseURIextended;
+    }
+
+    function _setTokenURI(uint256 tokenId, string memory _tokenURI) internal virtual {
+        require(_exists(tokenId), "ERC721URIStorage: URI set of nonexistent token");
+        _tokenURIs[tokenId] = _tokenURI;
     }
 
     function pause() public onlyRole(PAUSER_ROLE) {
@@ -76,6 +93,7 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
     ) public onlyRole(DEFAULT_ADMIN_ROLE) {
         require(publicBool, "Function not currently accessible");
         require(_tokenIdCounter.current() < 50001, "Tokens are sold out.");
+        string degenURI = _baseURIextended + "degen.json";
         for (uint256 j = 0; j < whiteList.length; j++) {
             address to = whiteList[j];
             for (uint256 i = 0; i < amount; i++) {
@@ -93,7 +111,7 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
         require(publicBool, "Function not currently accessible");
         require(_tokenIdCounter.current() < 50001, "Tokens are sold out.");
         require(msg.value >= amount * MINT_RATE, "Not enough ether.");
-
+        string degenURI = _baseURIextended + "degen.json";
         address to = msg.sender;
         for (uint256 i = 0; i < amount; i++) {
             _safeMint(to, _tokenIdCounter.current());
@@ -124,7 +142,7 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
     ) public onlyRole(DEFAULT_ADMIN_ROLE) {
         require(adminBool, "Function not currently accessible");
         require(_ogTokenIdCounter.current() < 1001, "OG Tokens are sold out");
-
+        string ogURI = _baseURIextended + "og.json";
         for (uint256 j = 0; j < whiteList.length; j++) {
             address to = whiteList[j];
             for (uint256 i = 0; i < amount; i++) {
@@ -158,7 +176,7 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
     function setContractURI(string memory uri) public onlyRole(DEFAULT_ADMIN_ROLE){
         uriValue = uri;
     }
-
+/*
     function tokenURI(uint256 tokenId)
         public
         view
@@ -167,6 +185,7 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
     {
         return super.tokenURI(tokenId);
     }
+    */
 
     function supportsInterface(bytes4 interfaceId)
         public

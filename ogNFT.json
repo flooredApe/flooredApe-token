@@ -1,9 +1,9 @@
 {
-    "attributes": 
+    "attributes": [
     {
-        "trait_type": "type",
+        "trait_type": "Type",
         "value": "OG 🐵"
-    },
+    }],
     "description": "OG 🐵",
     "animation_url": "https://flooredape.mypinata.cloud/ipfs/QmQzne1EnS8VMXrXUDvKWKe3umVWcCNHPFDMspmLjeWAoh",
     "image": "https://flooredape.mypinata.cloud/ipfs/QmbDovBVNRcBKDV2qWddT4NURUF4jZ974wcG4Fj1c3kjv4",
