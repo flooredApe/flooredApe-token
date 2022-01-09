@@ -1,5 +1,9 @@
 {
-    
+    "attributes": [
+        {
+            "trait_type": "Type",
+            "value": "Degen 🐵"
+        }],
     "description" : "🐵",
     "image" : "https://flooredape.mypinata.cloud/ipfs/QmYJtVFzg9gEt4puSvgg1SmgRsMTsJ3PCoxEpoRm7jc7Nz",
     "animation_url" : "https://flooredape.mypinata.cloud/ipfs/QmeQqULRLVGLbjBDBoz4c6W5Vv1rn71CULMH9nE7it1724", 
