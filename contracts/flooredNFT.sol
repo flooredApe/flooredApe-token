@@ -49,14 +49,9 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
     string private uriValue = "https://flooredape.mypinata.cloud/ipfs/QmdnpoFHDeVJcBbGyUZDXrNisKynYj2EgpNszuAnGmdRhp/";
     string private degen = "degen.json";
     string private og = "og.json";
-    //string private degenURI = "https://gateway.pinata.cloud/ipfs/QmaSetYmNsX3jsUaiLhaTZenZjaDXvd8MH5zNfjYczT6Fw";
-    //string private ogURI = "https://gateway.pinata.cloud/ipfs/QmQdRZftc8Zxk6MhMBzD9Kz2whtSf3pJycdycbfcBDxvij";
 
     Counters.Counter private _tokenIdCounter;
     Counters.Counter private _ogTokenIdCounter;
-
-    // Optional mapping for token URIs
-    //mapping(uint256 => string) private _tokenURIs;
 
     uint256 public MINT_RATE = 0.02 ether;
 
