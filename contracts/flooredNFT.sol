@@ -42,11 +42,11 @@ contract flooredApe is ERC721, ERC721URIStorage, ReentrancyGuard, Pausable, Acce
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant OG_ROLE = keccak256("OG_ROLE");
-    bool public publicBool = true;
-    bool public whiteListBool = true;
+    bool public publicBool = false;
+    bool public whiteListBool = false;
     bool public adminBool = true;
-    string private _baseURIextended = "https://gateway.pinata.cloud/ipfs/QmUeyU2E1XTFSAUeTzwJZowXtyocWdYuGHc7QrVQUq9Qp2/";
-    string private uriValue = "https://flooredape.mypinata.cloud/ipfs/QmdnpoFHDeVJcBbGyUZDXrNisKynYj2EgpNszuAnGmdRhp/";
+    string private _baseURIextended = "https://flooredape.mypinata.cloud/ipfs/QmTUaRSYBKMRPReZKNk9HiB8MwPKtUXUposFBtSx6q41RQ/";
+    string private uriValue = "https://flooredape.mypinata.cloud/ipfs/Qmcc1GFU8DJPsLsrQJUEKpQafAFu2SrWqjX8ywDXi7x1zj";
     string private degen = "degen.json";
     string private og = "og.json";
 
